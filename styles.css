@@ -1,0 +1,66 @@
+a:link {
+  color: #00635D;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: #848C8C;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #3CBDB5;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: #00635D;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-weight: regular;
+  font-style: normal;
+}
+
+.main {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.description {
+  width: 100%;
+  max-width: 890px;
+  font-size: 18px;
+  font-weight: normal;
+  font-family: "JetBrains Mono", monospace;
+  margin-top: 20px;
+  margin-bottom: 50px;
+}
+
+.widgets-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  margin-inline: auto;
+}
+
+.widgets-left,
+.widgets-right,
+.widget-center {
+  flex: 0 0 320px;
+}
+
+.widgets-left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}

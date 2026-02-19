@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1100" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Denys’s Bookshelves</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://necolas.github.io/normalize.css/latest/normalize.css"
+    />
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <main class="main">
+      <h1 class="description">
+        ----------------------------------------------------------------------------------
+        <br />
+        For years, Goodreads has provided open access to its content. In
+        February of 2026, Goodreads suddenly closed public access to users'
+        bookshelves. This page contains official Goodreads widgets that
+        partially reflect the content of my Goodreads profile. More convenient
+        ways to display content, such as page snapshots, are prohibited by the
+        Goodreads Terms of Service.
+        <br />
+        <br />
+        - Denys Skuba
+        <br />
+        ----------------------------------------------------------------------------------
+      </h1>
+
+      <section class="widgets-container">
+        <div class="widgets-left">
+          <div id="currently-reading-widget"></div>
+          <div id="updates-widget"></div>
+        </div>
+
+        <div class="widget-center" id="read-widget"></div>
+
+        <div class="widgets-right" id="to-read-widget"></div>
+      </section>
+    </main>
+    <script>
+      function loadWidget(url, containerId) {
+        fetch(url)
+          .then((response) => response.text())
+          .then((html) => {
+            const container = document.getElementById(containerId);
+            const temp = document.createElement("div");
+            // Add html and styles, removes script tags
+            temp.innerHTML = html;
+            temp
+              .querySelectorAll("script")
+              .forEach((script) => script.remove());
+            container.innerHTML = temp.innerHTML;
+
+            // Add script tags to execute them
+            const parser = document.createElement("div");
+            parser.innerHTML = html;
+            const scripts = parser.querySelectorAll("script");
+            scripts.forEach((oldScript) => {
+              const newScript = document.createElement("script");
+              Array.from(oldScript.attributes).forEach((attr) => {
+                newScript.setAttribute(attr.name, attr.value);
+              });
+              newScript.textContent = oldScript.textContent;
+              container.appendChild(newScript);
+            });
+          });
+      }
+
+      loadWidget(
+        "widgets/bookshelf-currently-reading.html",
+        "currently-reading-widget",
+      );
+      loadWidget("widgets/bookshelf-read.html", "read-widget");
+      loadWidget("widgets/bookshelf-to-read.html", "to-read-widget");
+      loadWidget("widgets/updates.html", "updates-widget");
+    </script>
+  </body>
+</html>
